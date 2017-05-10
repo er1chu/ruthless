@@ -1,0 +1,13 @@
+{
+	"name": "miss-ruthless",
+	"description": "Miss Ruthless 2017",
+	"private": true,
+	"devDependencies": {
+		"grunt-contrib-stylus": "*",
+		"nib": "*",
+		"grunt-contrib-concat": "*",
+		"grunt-contrib-uglify": "*",
+		"grunt-contrib-watch": "*",
+		"grunt": "*"
+	}
+}
