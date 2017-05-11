@@ -8,6 +8,7 @@ module.exports = function(grunt) {
                     'js/loaders/BinaryLoader.js',
                     'js/Detector.js',
                     'js/libs/stats.min.js',
+                    'bower_components/dat.gui/build/dat.gui.min.js',
                     'js/app.js'
                 ],
                 dest: 'js/app.concat.js'

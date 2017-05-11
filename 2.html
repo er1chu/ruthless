@@ -32,9 +32,9 @@
 	</head>
 
 	<body>
-		<div id="d">
+		<!-- <div id="d">
 			<img src="img/logo.svg" width="600px" height="auto">
-		</div>
+		</div> -->
 
 		<script src="js/app.min.js"></script>
 		<script src="js/loaders/BinaryLoader.js"></script>
@@ -72,11 +72,11 @@
 				document.body.appendChild( container );
 
 				camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 5000 );
-				camera.position.z = 2000;
+				camera.position.z = 1000;
 
 				//
 
-				var path = "textures/cube/MilkyWay/dark-s_";
+				var path = "textures/cube/MilkyWay2/dark-s_";
 				var format = '.jpg';
 				var urls = [
 						path + 'px' + format, path + 'nx' + format,
@@ -130,7 +130,6 @@
 				// container.appendChild( stats.dom );
 
 				//
-
 
 				loader = new THREE.BinaryLoader();
 				loader.load( "obj/veyron/VeyronNoUv_bin.js", function( geometry ) { createScene( geometry, cubeMaterial1, cubeMaterial2, cubeMaterial3 ) } );
@@ -201,8 +200,8 @@
 				pointLight.position.x = 1500 * Math.cos( timer );
 				pointLight.position.z = 1500 * Math.sin( timer );
 
-				camera.position.x += ( mouseX - camera.position.x ) * .05;
-				camera.position.y += ( - mouseY - camera.position.y ) * .05;
+				camera.position.x += ( mouseX - camera.position.x ) * .01;
+				camera.position.y += ( - mouseY - camera.position.y ) * .01;
 
 				camera.lookAt( scene.position );
 

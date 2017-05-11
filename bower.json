@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "dependencies": {
     "jquery": "~2.0.3",
-    "three.js": "threejs#*"
+    "three.js": "threejs#*",
+    "dat.gui": "dat-gui#^0.6.4"
   }
 }
