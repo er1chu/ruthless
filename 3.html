@@ -76,19 +76,27 @@
 
 				//
 
-				var path = "textures/cube/MilkyWay2/dark-s_";
-				var format = '.jpg';
-				var urls = [
+				path = "textures/cube/MilkyWay2/dark-s_";
+				format = '.jpg';
+				urls = [
 						path + 'px' + format, path + 'nx' + format,
 						path + 'py' + format, path + 'ny' + format,
 						path + 'pz' + format, path + 'nz' + format
 					];
 
-				var reflectionCube = new THREE.CubeTextureLoader().load( urls );
+				path2 = "textures/cube/skybox/";
+				urls2 = [
+						path2 + 'px' + format, path2 + 'nx' + format,
+						path2 + 'py' + format, path2 + 'ny' + format,
+						path2 + 'pz' + format, path2 + 'nz' + format
+					];
+
+				reflectionCube = new THREE.CubeTextureLoader().load( urls );
+				reflectionCube2 = new THREE.CubeTextureLoader().load(urls2);
 				reflectionCube.format = THREE.RGBFormat;
 
 				scene = new THREE.Scene();
-				scene.background = reflectionCube;
+				scene.background = reflectionCube2;
 
 				// LIGHTS
 
@@ -150,16 +158,16 @@
 				var folder2 = panel.addFolder('Scene');
 
 				settings = {
-					'show rose': true,
+					'show model': true,
 					'rotation speed': 5
 				};
 
-				folder1.add(settings, 'show rose');
+				folder1.add(settings, 'show model');
 				folder2.add( settings, 'rotation speed', 0.01, 0.1, 0.001 );
 				
 				folder1.open();
 				folder2.open();
-				console.log('dat gui')
+				console.log('dat gui');
 
 			}
 
@@ -230,6 +238,11 @@
 				camera.position.y += ( - mouseY - camera.position.y ) * .01;
 
 				camera.lookAt( scene.position );
+				if (mouseX > 0) {
+					scene.background = reflectionCube;
+				} else {
+					scene.background= reflectionCube2;
+				}
 
 				renderer.render( scene, camera );
 
