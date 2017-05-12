@@ -25,21 +25,21 @@
 		<link rel="stylesheet" href="css/app.min.css">
 		<style>
 
-			#d { text-align:center; margin:1em 0 -9.5em 2em; z-index:1000;position: absolute; top: 20px;left: 50%;transform: translateX(-50%);}
-
+/*			#d { text-align:center; margin:1em 0 -9.5em 2em; z-index:1000;position: absolute; top: 20px;left: 50%;transform: translateX(-50%);}
+*/
 
 		</style>
 	</head>
 
 	<body>
-		<div id="d">
+		<!-- <div id="d">
 			<img src="img/logo.svg" width="600px" height="auto">
-		</div>
+		</div> -->
 
 		<script src="js/app.min.js"></script>
-		<script src="js/loaders/BinaryLoader.js"></script>
-		<script src="js/Detector.js"></script>
-		<script src="js/libs/stats.min.js"></script>
+	<!-- 	<script src="js/loaders/AssimpJSONLoader.js"></script> -->
+<!-- 		<script src="js/Detector.js"></script> -->
+<!-- 		<script src="js/libs/stats.min.js"></script> -->
 
 		<script>
 
@@ -72,23 +72,31 @@
 				document.body.appendChild( container );
 
 				camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 5000 );
-				camera.position.z = 2000;
+				camera.position.z = 1000;
 
 				//
 
-				var path = "textures/cube/MilkyWay/dark-s_";
-				var format = '.jpg';
-				var urls = [
+				path = "textures/cube/MilkyWay2/dark-s_";
+				format = '.jpg';
+				urls = [
 						path + 'px' + format, path + 'nx' + format,
 						path + 'py' + format, path + 'ny' + format,
 						path + 'pz' + format, path + 'nz' + format
 					];
 
-				var reflectionCube = new THREE.CubeTextureLoader().load( urls );
+				path2 = "textures/cube/skybox/";
+				urls2 = [
+						path2 + 'px' + format, path2 + 'nx' + format,
+						path2 + 'py' + format, path2 + 'ny' + format,
+						path2 + 'pz' + format, path2 + 'nz' + format
+					];
+
+				reflectionCube = new THREE.CubeTextureLoader().load( urls );
+				reflectionCube2 = new THREE.CubeTextureLoader().load(urls2);
 				reflectionCube.format = THREE.RGBFormat;
 
 				scene = new THREE.Scene();
-				scene.background = reflectionCube;
+				scene.background = reflectionCube2;
 
 				// LIGHTS
 
@@ -102,7 +110,7 @@
 
 				var sphere = new THREE.SphereGeometry( 100, 16, 8 );
 
-				var mesh = new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xffaa00 } ) );
+				mesh = new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xffaa00 } ) );
 				mesh.scale.set( 0.05, 0.05, 0.05 );
 				pointLight.add( mesh );
 
@@ -129,15 +137,37 @@
 				// stats = new Stats();
 				// container.appendChild( stats.dom );
 
-				//
 
-
-				loader = new THREE.BinaryLoader();
-				loader.load( "obj/veyron/VeyronNoUv_bin.js", function( geometry ) { createScene( geometry, cubeMaterial1, cubeMaterial2, cubeMaterial3 ) } );
+				loader = new THREE.JSONLoader();
+				loader.load( "obj/rose.js", function( geometry ) { createScene( geometry, cubeMaterial1, cubeMaterial2, cubeMaterial3 ) } );
 
 				//
+
+				controlPanel()
 
 				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function controlPanel() {
+				var panel = new dat.GUI({
+					width: 310
+				})
+
+				var folder1 = panel.addFolder('Model');
+				var folder2 = panel.addFolder('Scene');
+
+				settings = {
+					'show model': true,
+					'rotation speed': 5
+				};
+
+				folder1.add(settings, 'show model');
+				folder2.add( settings, 'rotation speed', 0.01, 0.1, 0.001 );
+				
+				folder1.open();
+				folder2.open();
+				console.log('dat gui');
 
 			}
 
@@ -155,10 +185,11 @@
 
 			function createScene( geometry, m1, m2, m3 ) {
 
-				var s = 7;
+				var s = 20;
 
-				var mesh = new THREE.Mesh( geometry, m1 );
+				mesh = new THREE.Mesh( geometry, m1 );
 				mesh.position.z = - 100;
+				mesh.position.y = - 1000;
 				mesh.scale.x = mesh.scale.y = mesh.scale.z = s;
 				scene.add( mesh );
 
@@ -190,7 +221,8 @@
 				requestAnimationFrame( animate );
 
 				render();
-				stats.update();
+				// stats.update();
+
 
 			}
 
@@ -200,11 +232,17 @@
 
 				pointLight.position.x = 1500 * Math.cos( timer );
 				pointLight.position.z = 1500 * Math.sin( timer );
+				mesh.rotation.y += 0.01;
 
-				camera.position.x += ( mouseX - camera.position.x ) * .05;
-				camera.position.y += ( - mouseY - camera.position.y ) * .05;
+				camera.position.x += ( mouseX - camera.position.x ) * .01;
+				camera.position.y += ( - mouseY - camera.position.y ) * .01;
 
 				camera.lookAt( scene.position );
+				if (mouseX > 0) {
+					scene.background = reflectionCube;
+				} else {
+					scene.background= reflectionCube2;
+				}
 
 				renderer.render( scene, camera );
 
