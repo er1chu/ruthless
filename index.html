@@ -32,12 +32,8 @@
 	</head>
 
 	<body>
-		<!-- <div id="d">
-			<img src="img/logo.svg" width="600px" height="auto">
-		</div> -->
-
+		<div id="hero"></div><div class="main1">Testing</div>
 		<script src="js/app.min.js"></script>
-	<!-- 	<script src="js/loaders/AssimpJSONLoader.js"></script> -->
 <!-- 		<script src="js/Detector.js"></script> -->
 <!-- 		<script src="js/libs/stats.min.js"></script> -->
 
@@ -53,7 +49,6 @@
 
 			var loader;
 
-			var pointLight;
 
 			var mouseX = 0;
 			var mouseY = 0;
@@ -68,16 +63,16 @@
 
 			function init() {
 
-				container = document.createElement( 'div' );
-				document.body.appendChild( container );
+				container = document.getElementById('hero');
 
 				camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 5000 );
 				camera.position.z = 1000;
 
 				//
 
-				path = "textures/cube/MilkyWay2/dark-s_";
+				path = "textures/cube/skybox/";
 				format = '.jpg';
+				format2 ='.jpg';
 				urls = [
 						path + 'px' + format, path + 'nx' + format,
 						path + 'py' + format, path + 'ny' + format,
@@ -86,10 +81,11 @@
 
 				path2 = "textures/cube/skybox/";
 				urls2 = [
-						path2 + 'px' + format, path2 + 'nx' + format,
-						path2 + 'py' + format, path2 + 'ny' + format,
-						path2 + 'pz' + format, path2 + 'nz' + format
+						path2 + 'px' + format2, path2 + 'nx' + format2,
+						path2 + 'py' + format2, path2 + 'ny' + format2,
+						path2 + 'pz' + format2, path2 + 'nz' + format2
 					];
+
 
 				reflectionCube = new THREE.CubeTextureLoader().load( urls );
 				reflectionCube2 = new THREE.CubeTextureLoader().load(urls2);
@@ -100,27 +96,23 @@
 
 				// LIGHTS
 
-				var ambient = new THREE.AmbientLight( 0xffffff,6 );
+				var ambient = new THREE.AmbientLight( 0xffffff,1 );
 				scene.add( ambient );
-
-				pointLight = new THREE.PointLight( 0xffffff, 2 );
-				scene.add( pointLight );
 
 				// light representation
 
 				var sphere = new THREE.SphereGeometry( 100, 16, 8 );
 
 				mesh = new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xffaa00 } ) );
-				mesh.scale.set( 0.05, 0.05, 0.05 );
-				pointLight.add( mesh );
+				mesh.scale.set( 0.02, 0.02, 0.02 );
 
 				var refractionCube = new THREE.CubeTextureLoader().load( urls );
 				refractionCube.mapping = THREE.CubeRefractionMapping;
 				refractionCube.format = THREE.RGBFormat;
 
 				//var cubeMaterial3 = new THREE.MeshPhongMaterial( { color: 0x000000, specular:0xaa0000, envMap: reflectionCube, combine: THREE.MixOperation, reflectivity: 0.25 } );
-				var cubeMaterial3 = new THREE.MeshLambertMaterial( { color: 0xff6600, envMap: reflectionCube, combine: THREE.MixOperation, reflectivity: 0.1 } );
-				var cubeMaterial2 = new THREE.MeshLambertMaterial( { color: 0xffee00, envMap: refractionCube, refractionRatio: 1 } );
+				// var cubeMaterial3 = new THREE.MeshLambertMaterial( { color: 0xff6600, envMap: reflectionCube, combine: THREE.MixOperation, reflectivity: 0.1 } );
+				// var cubeMaterial2 = new THREE.MeshLambertMaterial( { color: 0xffee00, envMap: refractionCube, refractionRatio: 1 } );
 				var cubeMaterial1 = new THREE.MeshLambertMaterial( { color: 0xffffff, envMap: reflectionCube } );
 
 				//
@@ -139,7 +131,7 @@
 
 
 				loader = new THREE.JSONLoader();
-				loader.load( "obj/rose.js", function( geometry ) { createScene( geometry, cubeMaterial1, cubeMaterial2, cubeMaterial3 ) } );
+				loader.load( "obj/peony_low.js", function( geometry ) { createScene( geometry, cubeMaterial1) } );
 
 				//
 
@@ -185,7 +177,7 @@
 
 			function createScene( geometry, m1, m2, m3 ) {
 
-				var s = 20;
+				var s = 12;
 
 				mesh = new THREE.Mesh( geometry, m1 );
 				mesh.position.z = - 100;
@@ -229,11 +221,7 @@
 			function render() {
 
 				var timer = -0.0002 * Date.now();
-
-				pointLight.position.x = 1500 * Math.cos( timer );
-				pointLight.position.z = 1500 * Math.sin( timer );
 				mesh.rotation.y += 0.01;
-
 				camera.position.x += ( mouseX - camera.position.x ) * .01;
 				camera.position.y += ( - mouseY - camera.position.y ) * .01;
 

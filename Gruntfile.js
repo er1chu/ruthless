@@ -4,7 +4,7 @@ module.exports = function(grunt) {
             js: {
                 src: [
                     'bower_components/jquery/jquery.js',
-                    'bower_components/three.js/build/three.js',
+                    'bower_components/three.js/build/three.min.js',
                     'js/loaders/BinaryLoader.js',
                     'js/Detector.js',
                     'js/libs/stats.min.js',
