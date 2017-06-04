@@ -2,6 +2,30 @@
 
 global-reset()
 
+font-url(file)
+	return '../fonts/' + file
+	
+webfont(family, file, weight = 'normal')
+	@font-face
+		font-family: family
+		src: url(font-url(file + '.woff')) format('woff'), 
+			url(font-url(file + '.woff2')) format('woff2'), 
+		font-weight weight
+		font-style: normal
+webfont('Wremena','wremena', normal)
+
+$englishFont = 'Wremena','Times','Times New Roman', serif;
+$minchoFont = 'Sawarabi Mincho','ヒラギノ明朝 ProN' , 'Hiragino Mincho ProN' , '游明朝','游明朝体',YuMincho,'Yu Mincho' , 'ＭＳ 明朝' , 'MS Mincho' , HiraMinProN-W3 , 'TakaoEx明朝' , TakaoExMincho , 'MotoyaLCedar' , 'Droid Sans Japanese' , serif;
+$mainFontSize = 3rem
+$mainFontSizeMincho = $mainFontSize - .25rem
+$captionFontSize = 2rem
+$captionFontSizeMincho = $captionFontSize - .2rem
+
+html
+	font-size: 62.5%
+	-webkit-font-smoothing: antialiased
+
+		
 #hero
 	z-index: 10
 	position: fixed
@@ -12,24 +36,52 @@ canvas
 .main1
 	background: rgba(255,0,0,0.8)
 	width: 100vw
-	height: 100vh
+	min-height: 100vh
+	box-sizing: border-box
 	z-index: 50
+	padding: 12.5%
+	line-height: 3.75rem
+	font-size: $mainFontSize
+	font-family: $englishFont
 	color: #fff
-	position: absolute;
-	top: 100%;
+	position: absolute
+	top: 100%
+
+.column
+	width: 25%
+	float: left
+
+.text-body
+	margin-bottom: 3.75rem
+
+.line-up
+	margin-top: 3.75rem
+	margin-bottom: 3.75rem
+
+.mincho
+	font-family: $minchoFont
+	font-size: $mainFontSizeMincho
+	
+.caption
+	font-size: $captionFontSize
+	line-height: 2.4rem
+
+.caption-mincho
+	font-size: $captionFontSizeMincho
+	font-family: $minchoFont
 
 .logo
 	z-index:9999
 	position: fixed
 	top: 50%
 	width: 100%
-	transition: 0.3s ease all;
+	transition: 0.3s ease all
 	left: 0
-	transform: translateY(-50%);
+	transform: translateY(-50%)
 	img
 		width: 100%
 		opacity: 0.95
-		transition: 0.2s ease all;
+		transition: 0.2s ease all
 		&:hover
 			cursor: pointer
 			transform: scale(1.05)

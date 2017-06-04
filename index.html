@@ -23,10 +23,247 @@
 		<link rel="apple-touch-icon-precomposed" href="" />
 
 		<link rel="stylesheet" href="css/app.min.css">
+		<link href="https://fonts.googleapis.com/earlyaccess/sawarabimincho.css" rel="stylesheet" />
+
 	</head>
 
 	<body>
-		<div class="logo"><img src="img/vector2.svg" alt="無情小姐 (Miss Ruthless)"></div><div id="hero"></div><div class="main1">Testing</div>
+		<div class="logo"><img src="img/vector2.svg" alt="無情小姐 (Miss Ruthless)"></div>
+		<div id="hero"></div>
+		<div class="main1">
+			<div class="header text-body">
+				<div class="chinese-title mincho">尋求無情小姐</div>
+				<div class="english-title">In Search of Miss Ruthless</div>
+				<div class="date">6/30–9/10, 2017</div>
+			</div>
+			<div class="line-up">
+				Amna Asghar, Doreen Chan <span class="mincho">陳泳因</span>, Viola Chen <span class="mincho">陳宜晴</span>, Dachal Choi <span class="mincho">崔大察</span>, COME INSIDE <span class="mincho">來了</span>, Eternal Dragonz, Jes Fan, Christopher K. Ho <span class="mincho">何恩懷</span>, Eisa Jocson, Linda C.H. Lai <span class="mincho">黎肖嫻</span>, Fiona Lee <span class="mincho">李穎姍</span>, Ma Qiusha <span class="mincho">馬秋莎</span>, Huong Ngo, Ngoc Nau, Xiaoshi Vivian Vivian Qin <span class="mincho">覃小詩</span>, Renee So, Salote Tawale, Hiram To <span class="mincho">杜子卿</span>, Ka-Man Tse <span class="mincho">謝嘉敏</span>, Wong Kit Yi <span class="mincho">黃潔宜</span>, Kristina Wong <span class="mincho">黃君儀</span>, Xiyadie <span class="mincho">西亞蝶</span>, Yu Shuk Pui Bobby <span class="mincho">余淑培</span> 
+			</div>
+			<div class="details">
+			<div class="caption column">
+				<span class="caption-mincho">藝術空間</span> Para Site<br>
+				www.para-site.art
+			</div>
+			<div class="caption column">
+				<span class="caption-mincho">開幕式</span> Opening Reception<br>
+				6/30, 7–9:00 PM
+			</div>
+			<div class="caption column">
+				<span class="caption-mincho">新聞發布會</span> Press Conference<br>
+				7/2, 6:30–11 PM
+			</div>
+			</div>
+			<div class="text-body">
+				<div class="english-letter">
+					Dear Miss Ruthless,<br><br>
+					 
+					We have been chasing the stories of diasporic pageant queens. There is something ruthless about their stories, something that recalls the sentimentality of Chinese culture. Allow us to paraphrase Rey Chow in writing that sentimentality is an attachment premised on adaptation and resilience. Romance that endures. We are building a community to welcome you. And really, a community is just a group of people who are capable of holding a pageant. The stage has been set.<br><br>
+					 
+					Yours truly,<br>
+					Hera Chan and David Xu Borgonjon, Curators
+				</div>
+				<div class="chinese-letter mincho">	 
+					致無情小姐：<br><br>
+					 
+					我們在追朔華僑選美皇后的故事。她們的故事是如此無情，暗喻著中文流行文化濫情中隱藏的一顆狠心。文學家周雷曾寫：所謂濫情是基於應變與忍耐之上的一種戀戀不捨。一部持久的言情小說。然而我們正在聚集一個社群來迎接你。也許任何一個社群都只不過是一些能夠舉辦選美競賽的人。舞台已佈好了，就等你出現。<br><br>
+					 
+					祝好<br>
+					策展人陳思穎、許大小
+				</div>
+		</div>
+
+		</div>
 		<script src="js/app.min.js"></script>
+		<script>	// Detect WebGL
+			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+			// Initialize Variables
+			var container, stats;
+			var camera, scene, renderer;
+			var mesh, geometry;
+			var loader;
+			var mouseX = 0;
+			var mouseY = 0;
+
+			var windowHalfX = window.innerWidth / 2;
+			var windowHalfY = window.innerHeight / 2;
+
+			document.addEventListener('mousemove', onDocumentMouseMove, false);
+
+			init();
+			animate();
+
+			function init() {
+
+				container = document.getElementById('hero');
+
+				camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 5000 );
+				camera.position.z = 1000;
+
+				//
+
+				path = "textures/cube/sky3/";
+				format = '.jpg';
+				format2 ='.jpg';
+				urls = [
+						path + 'px' + format, path + 'nx' + format,
+						path + 'py' + format, path + 'ny' + format,
+						path + 'pz' + format, path + 'nz' + format
+					];
+
+				reflectionCube = new THREE.CubeTextureLoader().load( urls );
+				// reflectionCube2 = new THREE.CubeTextureLoader().load(urls2);
+				reflectionCube.format = THREE.RGBFormat;
+				reflectionCube.minFilter = THREE.LinearFilter;
+
+				scene = new THREE.Scene();
+				scene.background = reflectionCube;
+
+				// LIGHTS
+
+				var ambient = new THREE.AmbientLight( 0xffffff,1.1 );
+				scene.add( ambient );
+
+				// light representation
+
+				var sphere = new THREE.SphereGeometry( 100, 16, 8 );
+
+				mesh = new THREE.Mesh( sphere, new THREE.MeshBasicMaterial( { color: 0xffaa00 } ) );
+				mesh.scale.set( 0.02, 0.02, 0.02 );
+
+				var refractionCube = new THREE.CubeTextureLoader().load( urls );
+				refractionCube.mapping = THREE.CubeRefractionMapping;
+				refractionCube.format = THREE.RGBFormat;
+
+				//var cubeMaterial3 = new THREE.MeshPhongMaterial( { color: 0x000000, specular:0xaa0000, envMap: reflectionCube, combine: THREE.MixOperation, reflectivity: 0.25 } );
+				// var cubeMaterial3 = new THREE.MeshLambertMaterial( { color: 0xff6600, envMap: reflectionCube, combine: THREE.MixOperation, reflectivity: 0.1 } );
+				// var cubeMaterial2 = new THREE.MeshLambertMaterial( { color: 0xffee00, envMap: refractionCube, refractionRatio: 1 } );
+				var cubeMaterial1 = new THREE.MeshLambertMaterial( { color: 0xffffff, envMap: reflectionCube, } );
+
+				//
+
+
+
+				renderer = new THREE.WebGLRenderer();
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				//
+
+				// stats = new Stats();
+				// container.appendChild( stats.dom );
+
+
+				loader = new THREE.JSONLoader();
+				loader.load( "obj/peony_low.js", function( geometry ) { createScene( geometry, cubeMaterial1) } );
+
+				//
+
+				// controlPanel()
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function controlPanel() {
+				var panel = new dat.GUI({
+					width: 310
+				})
+
+				var folder1 = panel.addFolder('Model');
+				var folder2 = panel.addFolder('Scene');
+
+				settings = {
+					'show model': true,
+					'rotation speed': 5
+				};
+
+				folder1.add(settings, 'show model');
+				folder2.add( settings, 'rotation speed', 0.01, 0.1, 0.001 );
+				
+				folder1.open();
+				folder2.open();
+				console.log('dat gui');
+
+			}
+
+			function onWindowResize() {
+
+				windowHalfX = window.innerWidth / 2;
+				windowHalfY = window.innerHeight / 2;
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function createScene( geometry, m1, m2, m3 ) {
+
+				var s = 12;
+
+				mesh = new THREE.Mesh( geometry, m1 );
+				mesh.position.z = - 100;
+				mesh.position.y = - 1000;
+				mesh.scale.x = mesh.scale.y = mesh.scale.z = s;
+				scene.add( mesh );
+
+				// var mesh = new THREE.Mesh( geometry, m2 );
+				// mesh.position.x = - 900;
+				// mesh.position.z = - 100;
+				// mesh.scale.x = mesh.scale.y = mesh.scale.z = s;
+				// scene.add( mesh );
+
+				// var mesh = new THREE.Mesh( geometry, m3 );
+				// mesh.position.x = 900;
+				// mesh.position.z = - 100;
+				// mesh.scale.x = mesh.scale.y = mesh.scale.z = s;
+				// scene.add( mesh );
+
+			}
+
+			function onDocumentMouseMove(event) {
+
+				mouseX = ( event.clientX - windowHalfX ) * 4;
+				mouseY = ( event.clientY - windowHalfY ) * 4;
+
+			}
+
+			//
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				render();
+				// stats.update();
+
+
+			}
+
+			function render() {
+
+				var timer = -0.0002 * Date.now();
+				mesh.rotation.y += 0.003;
+				camera.position.x += ( mouseX - camera.position.x ) * .001;
+				camera.position.y += ( - mouseY - camera.position.y ) * .001;
+				if (camera.position.x >= 80) {
+					camera.position.x = 80;
+				} else if (camera.position.x <= -80) {
+					camera.position.x = -80;
+				}
+
+				camera.lookAt( scene.position );
+				// if (mouseX > 0) {
+				// 	scene.background = reflectionCube;
+				// } else {
+				// 	scene.background= reflectionCube2;
+				// }
+
+				renderer.render( scene, camera );
+
+			}
+			</script>
 	</body>
 </html>
