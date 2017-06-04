@@ -70,7 +70,7 @@
 
 				//
 
-				path = "textures/cube/skybox/";
+				path = "textures/cube/sky3/";
 				format = '.jpg';
 				format2 ='.jpg';
 				urls = [
@@ -79,20 +79,21 @@
 						path + 'pz' + format, path + 'nz' + format
 					];
 
-				path2 = "textures/cube/skybox/";
-				urls2 = [
-						path2 + 'px' + format2, path2 + 'nx' + format2,
-						path2 + 'py' + format2, path2 + 'ny' + format2,
-						path2 + 'pz' + format2, path2 + 'nz' + format2
-					];
+				// path2 = "textures/cube/MilkyWay2/dark-s_";
+				// urls2 = [
+				// 		path2 + 'px' + format2, path2 + 'nx' + format2,
+				// 		path2 + 'py' + format2, path2 + 'ny' + format2,
+				// 		path2 + 'pz' + format2, path2 + 'nz' + format2
+				// 	];
 
 
 				reflectionCube = new THREE.CubeTextureLoader().load( urls );
-				reflectionCube2 = new THREE.CubeTextureLoader().load(urls2);
+				// reflectionCube2 = new THREE.CubeTextureLoader().load(urls2);
 				reflectionCube.format = THREE.RGBFormat;
+				reflectionCube.minFilter = THREE.LinearFilter;
 
 				scene = new THREE.Scene();
-				scene.background = reflectionCube2;
+				scene.background = reflectionCube;
 
 				// LIGHTS
 
@@ -113,7 +114,7 @@
 				//var cubeMaterial3 = new THREE.MeshPhongMaterial( { color: 0x000000, specular:0xaa0000, envMap: reflectionCube, combine: THREE.MixOperation, reflectivity: 0.25 } );
 				// var cubeMaterial3 = new THREE.MeshLambertMaterial( { color: 0xff6600, envMap: reflectionCube, combine: THREE.MixOperation, reflectivity: 0.1 } );
 				// var cubeMaterial2 = new THREE.MeshLambertMaterial( { color: 0xffee00, envMap: refractionCube, refractionRatio: 1 } );
-				var cubeMaterial1 = new THREE.MeshLambertMaterial( { color: 0xffffff, envMap: reflectionCube } );
+				var cubeMaterial1 = new THREE.MeshLambertMaterial( { color: 0xffffff, envMap: reflectionCube, } );
 
 				//
 
@@ -135,7 +136,7 @@
 
 				//
 
-				controlPanel()
+				// controlPanel()
 
 				window.addEventListener( 'resize', onWindowResize, false );
 
@@ -222,15 +223,24 @@
 
 				var timer = -0.0002 * Date.now();
 				mesh.rotation.y += 0.01;
-				camera.position.x += ( mouseX - camera.position.x ) * .01;
-				camera.position.y += ( - mouseY - camera.position.y ) * .01;
+				camera.position.x += ( mouseX - camera.position.x ) * .005;
+				camera.position.y += ( - mouseY - camera.position.y ) * .005;
+				if (camera.position.x >= 80) {
+					camera.position.x = 80;
+				} else if (camera.position.x <= -80) {
+					camera.position.x = -80;
+				} else if (camera.position.y >= 80) {
+					camera.position.y = 80;
+				} else if (camera.position.y <= -80 ) {
+					camera.position.y = -80;
+				}
 
 				camera.lookAt( scene.position );
-				if (mouseX > 0) {
-					scene.background = reflectionCube;
-				} else {
-					scene.background= reflectionCube2;
-				}
+				// if (mouseX > 0) {
+				// 	scene.background = reflectionCube;
+				// } else {
+				// 	scene.background= reflectionCube2;
+				// }
 
 				renderer.render( scene, camera );
 
