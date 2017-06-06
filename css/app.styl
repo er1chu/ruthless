@@ -48,7 +48,7 @@ canvas
 	min-height: 100vh
 	box-sizing: border-box
 	z-index: 50
-	padding: 12.5%
+	padding: 0 12.5% 0 12.5%
 	line-height: 3.75rem
 	font-size: $mainFontSize
 	font-family: $englishFont
@@ -61,6 +61,10 @@ canvas
 
 .click
 	width: 60px
+	margin-top: 10px
+	position: relative
+	left: 50%
+	transform: translateX(-50%)
 	img
 		max-width:100%
 .column
@@ -69,6 +73,9 @@ canvas
 	@media $mobileWidth
 		clear: both
 		width: 100%
+
+.header
+	margin-top: 11%
 
 .text-body
 	margin-bottom: 3.75rem
@@ -100,6 +107,18 @@ canvas
 	transition: 0.3s ease all
 	left: 50%
 	transform: translate(-50%,-50%)
+	svg
+		width: 99%
+		height: auto
+		opacity: 0.95
+		transition: 0.2s ease all
+		:hover
+			cursor: pointer
+			transform: scale(1.01)
+	svg path
+		fill: #ffffff
+		:hover
+			fill: #ff0000
 	img
 		width: 99%
 		opacity: 0.95
@@ -113,6 +132,12 @@ canvas
 .english-letter
 	clear: both
 	margin-top: 3.75rem
+	padding-top: 3.75rem
 
 .chinese-letter
 	margin-top: 3.75rem
+	margin-bottom: 3.75rem
+
+.parasite
+	img
+		max-width: 25%

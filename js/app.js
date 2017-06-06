@@ -8,6 +8,9 @@ $(function () {
 
 		},
 		_initScroll: function () {
+			$(document).ready(function() {
+				$(this).scrollTop(80);
+			});
 			$(window).scroll(function(){
 				if ($(window).scrollTop() > $('.main1').offset().top *.75) {
 					$('.logo').addClass('hidden');
@@ -22,6 +25,13 @@ $(function () {
 			        scrollTop: $('.main1').offset().top
 			    }, 200);
 			});
+
+			$('.clicker').click(function() {
+			    $('html, body').animate({
+			        scrollTop: $('.main1').offset().top
+			    }, 200);
+			});
+
 
 		}
 	};
