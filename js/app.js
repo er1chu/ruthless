@@ -15,11 +15,12 @@ $(function () {
 					$('.logo').removeClass('hidden');
 				}
 			});
+
 			
 			$('.logo').click(function() {
 			    $('html, body').animate({
 			        scrollTop: $('.main1').offset().top
-			    }, 2000);
+			    }, 200);
 			});
 
 		}

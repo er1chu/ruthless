@@ -17,22 +17,31 @@ webfont('Wremena','wremena', normal)
 $englishFont = 'Wremena','Times','Times New Roman', serif;
 $minchoFont = 'Sawarabi Mincho','ヒラギノ明朝 ProN' , 'Hiragino Mincho ProN' , '游明朝','游明朝体',YuMincho,'Yu Mincho' , 'ＭＳ 明朝' , 'MS Mincho' , HiraMinProN-W3 , 'TakaoEx明朝' , TakaoExMincho , 'MotoyaLCedar' , 'Droid Sans Japanese' , serif;
 $mainFontSize = 3rem
+$mobileFontSize = 2rem
 $mainFontSizeMincho = $mainFontSize - .25rem
+$mobileFontSizeMincho = $mobileFontSize - .25rem
 $captionFontSize = 2rem
 $captionFontSizeMincho = $captionFontSize - .2rem
+$mobileWidth = "(max-width: 480px) and (min-width: 320px)"
 
 html
 	font-size: 62.5%
 	-webkit-font-smoothing: antialiased
+	font-smoothing: antialiased
+	-moz-osx-font-smoothing: grayscale
 
 		
 #hero
 	z-index: 10
 	position: fixed
+	transition: 0.3s ease all
+	&.woah
+		filter: contrast(100%) blur(3px)
 canvas
 	// pointer-events: none
 	display: block
 	cursor: pointer
+	
 .main1
 	background: rgba(255,0,0,0.8)
 	width: 100vw
@@ -46,10 +55,20 @@ canvas
 	color: #fff
 	position: absolute
 	top: 100%
+	@media $mobileWidth
+		font-size: $mobileFontSize
+		line-height: 2.4rem
 
+.click
+	width: 60px
+	img
+		max-width:100%
 .column
 	width: 25%
 	float: left
+	@media $mobileWidth
+		clear: both
+		width: 100%
 
 .text-body
 	margin-bottom: 3.75rem
@@ -61,6 +80,8 @@ canvas
 .mincho
 	font-family: $minchoFont
 	font-size: $mainFontSizeMincho
+	@media $mobileWidth
+		font-size: $mobileFontSizeMincho
 	
 .caption
 	font-size: $captionFontSize
@@ -75,15 +96,23 @@ canvas
 	position: fixed
 	top: 50%
 	width: 100%
+	cursor: pointer
 	transition: 0.3s ease all
-	left: 0
-	transform: translateY(-50%)
+	left: 50%
+	transform: translate(-50%,-50%)
 	img
-		width: 100%
+		width: 99%
 		opacity: 0.95
 		transition: 0.2s ease all
 		&:hover
 			cursor: pointer
-			transform: scale(1.05)
+			transform: scale(1.01)
 	&.hidden
 		opacity: 0
+		
+.english-letter
+	clear: both
+	margin-top: 3.75rem
+
+.chinese-letter
+	margin-top: 3.75rem
