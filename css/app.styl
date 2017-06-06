@@ -34,9 +34,9 @@ html
 #hero
 	z-index: 10
 	position: fixed
-	transition: 0.3s ease all
+	transition: 0.1s ease all
 	&.woah
-		filter: contrast(100%) blur(3px)
+		filter: contrast(100%) blur(5px)
 canvas
 	// pointer-events: none
 	display: block
@@ -72,9 +72,13 @@ a
 	transform: translateX(-50%)
 	img
 		max-width:100%
+	&:hover
+		cursor: pointer
 .column
 	width: 25%
 	float: left
+	padding-right: 10px
+	box-sizing: border-box
 	@media $mobileWidth
 		clear: both
 		width: 100%
