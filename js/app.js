@@ -14,6 +14,8 @@ $(function () {
 			$(window).scroll(function(){
 				if ($(window).scrollTop() > $('.main1').offset().top *.75) {
 					$('.logo').addClass('hidden');
+					$('#flower').addClass('hidden');
+
 				} else {
 					$('.logo').removeClass('hidden');
 				}

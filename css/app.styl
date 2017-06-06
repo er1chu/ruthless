@@ -48,7 +48,7 @@ canvas
 	min-height: 100vh
 	box-sizing: border-box
 	z-index: 50
-	padding: 0 12.5% 0 12.5%
+	padding: 0 12.5% 12.5% 12.5%
 	line-height: 3.75rem
 	font-size: $mainFontSize
 	font-family: $englishFont
@@ -58,6 +58,11 @@ canvas
 	@media $mobileWidth
 		font-size: $mobileFontSize
 		line-height: 2.4rem
+a
+	color: #fff
+	text-decoration: none
+	&:hover
+		text-decoration: underline
 
 .click
 	width: 60px
@@ -126,8 +131,8 @@ canvas
 		&:hover
 			cursor: pointer
 			transform: scale(1.01)
-	&.hidden
-		opacity: 0
+.hidden
+	opacity: 0
 		
 .english-letter
 	clear: both
