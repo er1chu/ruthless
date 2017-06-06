@@ -7,8 +7,6 @@ module.exports = function(grunt) {
                     'bower_components/three.js/build/three.min.js',
                     'js/loaders/BinaryLoader.js',
                     'js/Detector.js',
-                    'js/libs/stats.min.js',
-                    'bower_components/dat.gui/build/dat.gui.min.js',
                     'js/app.js'
                 ],
                 dest: 'js/app.concat.js'

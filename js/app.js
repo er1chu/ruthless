@@ -4,10 +4,10 @@ $(function () {
 	var app = {
 		init: function () {
 
-			this._initScroll();
+			this._initScrollFunctions();
 
 		},
-		_initScroll: function () {
+		_initScrollFunctions: function () {
 			$(document).ready(function() {
 				$(this).scrollTop(80);
 			});
@@ -27,6 +27,7 @@ $(function () {
 			        scrollTop: $('.main1').offset().top
 			    }, 200);
 			});
+
 
 			$('.clicker').click(function() {
 			    $('html, body').animate({

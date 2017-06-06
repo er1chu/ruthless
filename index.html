@@ -139,7 +139,6 @@ Blinking rose icon by Dalpat Prajapati
 					];
 
 				reflectionCube = new THREE.CubeTextureLoader().load( urls );
-				// reflectionCube2 = new THREE.CubeTextureLoader().load(urls2);
 				reflectionCube.format = THREE.RGBFormat;
 				reflectionCube.minFilter = THREE.LinearFilter;
 
@@ -161,10 +160,6 @@ Blinking rose icon by Dalpat Prajapati
 				var refractionCube = new THREE.CubeTextureLoader().load( urls );
 				refractionCube.mapping = THREE.CubeRefractionMapping;
 				refractionCube.format = THREE.RGBFormat;
-
-				//var cubeMaterial3 = new THREE.MeshPhongMaterial( { color: 0x000000, specular:0xaa0000, envMap: reflectionCube, combine: THREE.MixOperation, reflectivity: 0.25 } );
-				// var cubeMaterial3 = new THREE.MeshLambertMaterial( { color: 0xff6600, envMap: reflectionCube, combine: THREE.MixOperation, reflectivity: 0.1 } );
-				// var cubeMaterial2 = new THREE.MeshLambertMaterial( { color: 0xffee00, envMap: refractionCube, refractionRatio: 1 } );
 				var cubeMaterial1 = new THREE.MeshLambertMaterial( { color: 0xffffff, envMap: reflectionCube, } );
 
 				//
@@ -175,20 +170,8 @@ Blinking rose icon by Dalpat Prajapati
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				container.appendChild( renderer.domElement );
-
-				//
-
-				// stats = new Stats();
-				// container.appendChild( stats.dom );
-
-
 				loader = new THREE.JSONLoader();
 				loader.load( "obj/peony_low.js", function( geometry ) { createScene( geometry, cubeMaterial1) } );
-
-				//
-
-				// controlPanel()
-
 				window.addEventListener( 'resize', onWindowResize, false );
 
 			}
@@ -237,18 +220,6 @@ Blinking rose icon by Dalpat Prajapati
 				mesh.scale.x = mesh.scale.y = mesh.scale.z = s;
 				scene.add( mesh );
 
-				// var mesh = new THREE.Mesh( geometry, m2 );
-				// mesh.position.x = - 900;
-				// mesh.position.z = - 100;
-				// mesh.scale.x = mesh.scale.y = mesh.scale.z = s;
-				// scene.add( mesh );
-
-				// var mesh = new THREE.Mesh( geometry, m3 );
-				// mesh.position.x = 900;
-				// mesh.position.z = - 100;
-				// mesh.scale.x = mesh.scale.y = mesh.scale.z = s;
-				// scene.add( mesh );
-
 			}
 
 			function onDocumentMouseMove(event) {
@@ -258,15 +229,12 @@ Blinking rose icon by Dalpat Prajapati
 
 			}
 
-			//
 
 			function animate() {
 
 				requestAnimationFrame( animate );
 
 				render();
-				// stats.update();
-
 
 			}
 
@@ -283,12 +251,6 @@ Blinking rose icon by Dalpat Prajapati
 				}
 
 				camera.lookAt( scene.position );
-				// if (mouseX > 0) {
-				// 	scene.background = reflectionCube;
-				// } else {
-				// 	scene.background= reflectionCube2;
-				// }
-
 				renderer.render( scene, camera );
 
 			}
